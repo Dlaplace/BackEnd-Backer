@@ -14,6 +14,7 @@ module.exports = {
     try {
       const id = req.params.projectid;
       const data = await Project.findById(id);
+      console.log(data.tickets)
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -37,7 +38,7 @@ module.exports = {
         runValidation: true,
         useFindAndModify: false,
       };
-      const data = await Project.findByIdAndUpdate(id, newUpdate, options);
+      const data = await Project.findByIdAndUpdate(id, newUpdate, options).populate('tickets');
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -46,7 +47,7 @@ module.exports = {
   async delete(req, res) {
     try {
       const id = req.params.projectid;
-      const data = await Project.findByIdAndDelete(id);
+      const data = await Project.findByIdAndDelete(id).populate('tickets');
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
