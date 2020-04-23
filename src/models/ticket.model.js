@@ -14,7 +14,7 @@ const ticketSchema = new Schema(
     priority: {
       type: String,
       enum: ["Normal", "High", "Low"],
-      required: true,
+      default: "Normal",
     },
     name: {
       type: String,

@@ -1,9 +1,9 @@
-const Project = require("../models/project.model");
+const Pool = require("../models/pool.model");
 
 module.exports = {
   async getAll(req, res) {
     try {  
-      const data = await Project.find().populate('tickets');
+      const data = await Pool.find().populate('new');
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -11,8 +11,8 @@ module.exports = {
   },
   async getOne(req, res) {
     try {
-      const id = req.params.projectid;
-      const data = await Project.findById(id);
+      const id = req.params.poolid;
+      const data = await Pool.findById(id);
       console.log(data.tickets)
       res.status(200).json(data);
     } catch (error) {
@@ -22,7 +22,7 @@ module.exports = {
   async create(req, res) {
     try {
       console.log(req.body);
-      const data = await Project.create(req.body);
+      const data = await Pool.create(req.body);
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -30,14 +30,14 @@ module.exports = {
   },
   async update(req, res) {
     try {
-      const id = req.params.projectid;
+      const id = req.params.poolid;
       const newUpdate = req.body;
       const options = {
         new: true,
         runValidation: true,
         useFindAndModify: false,
       };
-      const data = await Project.findByIdAndUpdate(id, newUpdate, options).populate('tickets');
+      const data = await Pool.findByIdAndUpdate(id, newUpdate, options).populate('tickets');
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -45,7 +45,7 @@ module.exports = {
   },
   async delete(req, res) {
     try {
-      const id = req.params.projectid;
+      const id = req.params.poolid;
       const data = await Project.findByIdAndDelete(id).populate('tickets');
       res.status(200).json(data);
     } catch (error) {
