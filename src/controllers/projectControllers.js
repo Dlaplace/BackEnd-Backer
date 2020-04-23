@@ -3,7 +3,7 @@ const Project = require("../models/project.model");
 module.exports = {
   async getAll(req, res) {
     try {  
-      const data = await Project.find().populate('tickets');
+      const data = await Project.find();
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);

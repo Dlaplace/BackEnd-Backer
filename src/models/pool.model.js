@@ -1,19 +1,19 @@
 const {Schema, model}= require ('mongoose');
 
 const poolSchema = new Schema({
-    new:{
+    High:{
         type:[{
             type: Schema.Types.ObjectId,
             ref: "Ticket",
           }]
     },
-    other:{
+    Normal:{
         type:[{
             type: Schema.Types.ObjectId,
             ref: "Ticket",
           }]
     },
-    closed:{
+    Low:{
         type:[{
             type: Schema.Types.ObjectId,
             ref: "Ticket",
@@ -21,6 +21,12 @@ const poolSchema = new Schema({
         },
         user:{
             
+        },
+        bin:{
+          type:[{
+            type: Schema.Types.ObjectId,
+            ref: "Ticket",
+          }]
         }
 },
 {timestamps:true});

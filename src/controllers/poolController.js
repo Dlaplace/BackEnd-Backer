@@ -3,7 +3,10 @@ const Pool = require("../models/pool.model");
 module.exports = {
   async getAll(req, res) {
     try {  
-      const data = await Pool.find().populate('new');
+      const data = await Pool.find()
+      .populate("Low")
+      .populate("Normal")
+      .populate("High");
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -31,15 +34,13 @@ module.exports = {
   async update(req, res) {
     try {
       const id = req.params.poolid;
-      console.log("yes it entered!",id)
       const newUpdate = req.body;
-      console.log(newUpdate)
       const options = {
         new: true,
         useFindAndModify: false,
       };
       const data = await Pool.findByIdAndUpdate(id, newUpdate, options);
-      console.log(data)
+      console.log('updated data ---------------',data)
       await pool.save();
       res.status(200).json(data);
     } catch (error) {

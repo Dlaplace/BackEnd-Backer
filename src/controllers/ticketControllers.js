@@ -27,7 +27,7 @@ module.exports = {
   async create(req, res) {
     try {
       const { projectid } = req.params;
-      const poolid = "5ea112dd40683e4b6082abb4";
+      const poolid = "5ea1e479ec77c181e49afb6e";
       const pool = await Pool.findById(poolid)
       const project = await Project.findById(projectid);
       const data = await Ticket.create({
@@ -35,7 +35,7 @@ module.exports = {
         project: project,
       });
       project.tickets.push(data);
-      pool.new.push(data);
+      pool[data.priority].push(data);
       await pool.save();
       if (data.priority === "High") {
         project[data.priority].push(data);
@@ -65,7 +65,7 @@ module.exports = {
         ticketid,
         newUpdate,
         options
-      ).populate("project");
+      );
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
