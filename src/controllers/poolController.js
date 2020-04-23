@@ -31,13 +31,16 @@ module.exports = {
   async update(req, res) {
     try {
       const id = req.params.poolid;
+      console.log("yes it entered!",id)
       const newUpdate = req.body;
+      console.log(newUpdate)
       const options = {
         new: true,
-        runValidation: true,
         useFindAndModify: false,
       };
-      const data = await Pool.findByIdAndUpdate(id, newUpdate, options).populate('tickets');
+      const data = await Pool.findByIdAndUpdate(id, newUpdate, options);
+      console.log(data)
+      await pool.save();
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
