@@ -9,7 +9,7 @@ const ticketSchema = new Schema(
     status: {
       type: String,
       enum: ["New", "Open", "Pending", "Closed"],
-      default: "New"
+      default: "New",
     },
     priority: {
       type: String,
@@ -34,6 +34,7 @@ const ticketSchema = new Schema(
     },
     comments: {
       type: [String],
+      default: null,
     },
   },
   { timestamps: true }
