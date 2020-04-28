@@ -35,18 +35,10 @@ module.exports = {
         project: project,
       });
       project.tickets.push(data);
+      project[data.priority].push(data)
       pool[data.priority].push(data);
       await pool.save();
-      if (data.priority === "High") {
-        project[data.priority].push(data);
-        await project.save();
-      } else if (data.priority === "Low") {
-        project[data.priority].push(data);
-        await project.save();
-      } else {
-        project[data.priority].push(data);
-        await project.save();
-      }
+      await project.save();
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
@@ -74,7 +66,7 @@ module.exports = {
   async delete(req, res) {
     try {
       const { ticketid } = req.params;
-      const data = await Ticket.findByIdAndDelete(ticketid).populate("project");
+      const data = await Ticket.findByIdAndDelete(ticketid);
       res.status(200).json(data);
     } catch (error) {
       res.status(400).json(error);
